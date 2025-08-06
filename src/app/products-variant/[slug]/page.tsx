@@ -5,19 +5,18 @@ import { notFound } from "next/navigation";
 import Footer from "@/components/common/footer";
 import { Header } from "@/components/common/header";
 import ProductList from "@/components/common/product-list";
-import { Button } from "@/components/ui/button";
 import { db } from "@/db";
 import { productTable, productVariantTable } from "@/db/schema";
 import { formatCentsToBRL } from "@/helpers/money";
 
-import QuantitySelector from "./components/product-quantity";
-import VariantSelector from "./components/variants-selector";
+import ProductActions from "./components/product-actions";
+import VariantSelector from "./components/variant-selector";
 
-interface ProductVarientPageProps {
+interface ProductVariantPageProps {
   params: Promise<{ slug: string }>;
 }
 
-const ProductVarientPage = async ({ params }: ProductVarientPageProps) => {
+const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
   const { slug } = await params;
   const productVariant = await db.query.productVariantTable.findFirst({
     where: eq(productVariantTable.slug, slug),
@@ -34,6 +33,9 @@ const ProductVarientPage = async ({ params }: ProductVarientPageProps) => {
   }
   const likelyProducts = await db.query.productTable.findMany({
     where: eq(productTable.categoryId, productVariant.product.categoryId),
+    with: {
+      variants: true,
+    },
   });
   return (
     <>
@@ -47,6 +49,7 @@ const ProductVarientPage = async ({ params }: ProductVarientPageProps) => {
           width={0}
           className="h-auto w-full object-cover"
         />
+
         <div className="px-5">
           <VariantSelector
             selectedVariantSlug={productVariant.slug}
@@ -55,6 +58,7 @@ const ProductVarientPage = async ({ params }: ProductVarientPageProps) => {
         </div>
 
         <div className="px-5">
+          {/* DESCRIÇÃO */}
           <h2 className="text-lg font-semibold">
             {productVariant.product.name}
           </h2>
@@ -66,29 +70,20 @@ const ProductVarientPage = async ({ params }: ProductVarientPageProps) => {
           </h3>
         </div>
 
-        <div className="px-5">
-          <QuantitySelector />
-        </div>
-
-        <div className="flex flex-col space-y-4 px-5">
-          <Button className="rounded-full" size="lg" variant="outline">
-            Comprar agora
-          </Button>
-          <Button className="rounded-full" size="lg" variant="outline">
-            Adicionar ao carrinho
-          </Button>
-        </div>
+        <ProductActions productVariantId={productVariant.id} />
 
         <div className="px-5">
-          <p className="text-sm">{productVariant.product.description}</p>
+          <p className="text-shadow-amber-600">
+            {productVariant.product.description}
+          </p>
         </div>
 
         <ProductList title="Talvez você goste" products={likelyProducts} />
-      </div>
 
-      <Footer />
+        <Footer />
+      </div>
     </>
   );
 };
 
-export default ProductVarientPage;
+export default ProductVariantPage;
