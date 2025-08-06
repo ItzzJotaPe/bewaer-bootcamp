@@ -1,3 +1,5 @@
+"use client";
+
 import { Sheet, ShoppingBasketIcon } from "lucide-react";
 
 import { Button } from "../ui/button";
