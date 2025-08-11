@@ -1,6 +1,12 @@
 "use client";
 
-import { LogInIcon, LogOutIcon, MenuIcon } from "lucide-react";
+import {
+  ClipboardListIcon,
+  HomeIcon,
+  LogInIcon,
+  LogOutIcon,
+  MenuIcon,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,6 +14,7 @@ import { authClient } from "@/lib/auth-client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
 import {
   Sheet,
   SheetContent,
@@ -36,10 +43,10 @@ export const Header = () => {
             <SheetHeader>
               <SheetTitle>Menu</SheetTitle>
             </SheetHeader>
-            <div className="px-5">
+            <div className="px-6 py-4">
               {session?.user ? (
                 <>
-                  <div className="flex justify-between space-y-6">
+                  <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <Avatar>
                         <AvatarImage
@@ -70,13 +77,89 @@ export const Header = () => {
               ) : (
                 <div className="flex items-center justify-between">
                   <h2 className="font-semibold">Olá. Faça seu login!</h2>
-                  <Button size="icon" asChild variant="outline">
-                    <Link href="/authentication">
-                      <LogInIcon />
+                  <Button asChild className="rounded-full px-4" size="sm">
+                    <Link
+                      href="/authentication"
+                      className="flex items-center gap-2"
+                    >
+                      <span>Login</span>
+                      <LogInIcon className="h-4 w-4" />
                     </Link>
                   </Button>
                 </div>
               )}
+              <div className="my-4">
+                <Separator />
+              </div>
+              <nav className="flex flex-col space-y-1 text-sm">
+                <Link
+                  href="/cart/identification"
+                  className="hover:bg-muted/50 flex items-center gap-3 rounded-md px-2 py-2.5"
+                >
+                  <HomeIcon className="h-4 w-4" />
+                  <span className="font-semibold">Início</span>
+                </Link>
+                <Link
+                  href="/my-orders"
+                  className="hover:bg-muted/50 flex items-center gap-3 rounded-md px-2 py-2.5"
+                >
+                  <ClipboardListIcon className="h-4 w-4" />
+                  <span className="font-semibold">Meus Pedidos</span>
+                </Link>
+              </nav>
+              <div className="my-4">
+                <Separator />
+              </div>
+              <ul className="mt-1 flex flex-col gap-2.5 text-sm">
+                <li>
+                  <Link
+                    href="/category/camisetas"
+                    className="hover:bg-muted/50 block rounded-md px-2 py-2 font-semibold"
+                  >
+                    Camisetas
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/category/bermuda-shorts"
+                    className="hover:bg-muted/50 block rounded-md px-2 py-2 font-semibold"
+                  >
+                    Bermuda & Shorts
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/category/calas"
+                    className="hover:bg-muted/50 block rounded-md px-2 py-2 font-semibold"
+                  >
+                    Calças
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/category/jaquetas-moletons"
+                    className="hover:bg-muted/50 block rounded-md px-2 py-2 font-semibold"
+                  >
+                    Jaquetas & Moletons
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/category/tnis"
+                    className="hover:bg-muted/50 block rounded-md px-2 py-2 font-semibold"
+                  >
+                    Tênis
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/category/acessrios"
+                    className="hover:bg-muted/50 block rounded-md px-2 py-2 font-semibold"
+                  >
+                    Acessórios
+                  </Link>
+                </li>
+              </ul>
             </div>
           </SheetContent>
         </Sheet>
