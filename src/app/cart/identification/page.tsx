@@ -46,7 +46,7 @@ const IdentificationPage = async () => {
   return (
     <div>
       <Header />
-      <div className="space-y-4 px-5">
+      <div className="space-y-4 px-4 sm:px-5 lg:px-6">
         <Addresses
           shippingAddresses={shippingAddresses}
           defaultShippingAddressId={cart.shippingAddress?.id || null}
@@ -64,7 +64,7 @@ const IdentificationPage = async () => {
           }))}
         />
       </div>
-      <div className="mt-12">
+      <div className="mt-8 sm:mt-12">
         <Footer />
       </div>
     </div>

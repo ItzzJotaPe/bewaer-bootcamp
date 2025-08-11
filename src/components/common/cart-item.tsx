@@ -58,43 +58,48 @@ const CartItem = ({
   };
   return (
     <div className="flex items-center justify-between">
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3 sm:gap-4">
         <Image
           src={productVariantImageUrl}
           alt={productVariantName}
           width={78}
           height={78}
-          className="rounded-lg"
+          className="h-16 w-16 rounded-lg sm:h-20 sm:w-20"
         />
         <div className="flex flex-col gap-1">
-          <p className="text-sm font-semibold">{productName}</p>
+          <p className="text-xs font-semibold sm:text-sm">{productName}</p>
           <p className="text-muted-foreground text-xs font-medium">
             {productVariantName}
           </p>
-          <div className="flex w-[100px] items-center justify-between rounded-lg border p-1">
+          <div className="flex w-[90px] items-center justify-between rounded-lg border p-1 sm:w-[100px]">
             <Button
-              className="h-4 w-4"
+              className="h-4 w-4 sm:h-5 sm:w-5"
               variant="ghost"
               onClick={handleDecreaseQuantityClick}
             >
-              <MinusIcon />
+              <MinusIcon className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
             <p className="text-xs font-medium">{quantity}</p>
             <Button
-              className="h-4 w-4"
+              className="h-4 w-4 sm:h-5 sm:w-5"
               variant="ghost"
               onClick={handleIncreaseQuantityClick}
             >
-              <PlusIcon />
+              <PlusIcon className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
           </div>
         </div>
       </div>
       <div className="flex flex-col items-end justify-center gap-2">
-        <Button variant="outline" size="icon" onClick={handleDeleteClick}>
-          <TrashIcon />
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={handleDeleteClick}
+          className="h-8 w-8 sm:h-9 sm:w-9"
+        >
+          <TrashIcon className="h-3 w-3 sm:h-4 sm:w-4" />
         </Button>
-        <p className="text-sm font-bold">
+        <p className="text-xs font-bold sm:text-sm">
           {formatCentsToBRL(productVariantPriceInCents)}
         </p>
       </div>

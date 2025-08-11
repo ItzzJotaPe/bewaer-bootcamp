@@ -23,21 +23,25 @@ export const Cart = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline" size="icon">
-          <ShoppingBasketIcon />
+        <Button
+          variant="outline"
+          size="icon"
+          className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11"
+        >
+          <ShoppingBasketIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
         </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="w-full sm:max-w-md">
         <SheetHeader>
-          <SheetTitle>Carrinho</SheetTitle>
+          <SheetTitle className="text-lg sm:text-xl">Carrinho</SheetTitle>
         </SheetHeader>
 
-        <div className="flex h-full flex-col px-5 pb-5">
+        <div className="flex h-full flex-col px-4 pb-4 sm:px-5 sm:pb-5">
           {cart?.items && cart.items.length > 0 ? (
             <>
               <div className="flex h-full max-h-full flex-col overflow-hidden">
                 <ScrollArea className="h-full">
-                  <div className="flex h-full flex-col gap-8">
+                  <div className="flex h-full flex-col gap-6 sm:gap-8">
                     {cart.items.map((item) => (
                       <CartItem
                         key={item.id}
@@ -59,11 +63,11 @@ export const Cart = () => {
           ) : (
             <div className="flex flex-1 items-center justify-center">
               <div className="text-center">
-                <ShoppingBasketIcon className="text-muted-foreground mx-auto mb-4 h-12 w-12" />
-                <p className="text-muted-foreground text-lg font-medium">
+                <ShoppingBasketIcon className="text-muted-foreground mx-auto mb-4 h-10 w-10 sm:h-12 sm:w-12" />
+                <p className="text-muted-foreground text-base font-medium sm:text-lg">
                   O carrinho está vazio
                 </p>
-                <p className="text-muted-foreground text-sm">
+                <p className="text-muted-foreground text-xs sm:text-sm">
                   Adicione produtos para continuar comprando
                 </p>
               </div>
@@ -71,29 +75,32 @@ export const Cart = () => {
           )}
 
           {cart?.items && cart?.items.length > 0 && (
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3 sm:gap-4">
               <Separator />
 
-              <div className="flex items-center justify-between text-xs font-medium">
+              <div className="flex items-center justify-between text-xs font-medium sm:text-sm">
                 <p>Subtotal</p>
                 <p>{formatCentsToBRL(cart?.totalPriceInCents ?? 0)}</p>
               </div>
 
               <Separator />
 
-              <div className="flex items-center justify-between text-xs font-medium">
+              <div className="flex items-center justify-between text-xs font-medium sm:text-sm">
                 <p>Entrega</p>
                 <p>GRÁTIS</p>
               </div>
 
               <Separator />
 
-              <div className="flex items-center justify-between text-xs font-medium">
+              <div className="flex items-center justify-between text-xs font-medium sm:text-sm">
                 <p>Total</p>
                 <p>{formatCentsToBRL(cart?.totalPriceInCents ?? 0)}</p>
               </div>
 
-              <Button className="mt-5 rounded-full" asChild>
+              <Button
+                className="mt-4 rounded-full text-xs sm:mt-5 sm:text-sm"
+                asChild
+              >
                 <Link href="/cart/identification">Finalizar compra</Link>
               </Button>
             </div>

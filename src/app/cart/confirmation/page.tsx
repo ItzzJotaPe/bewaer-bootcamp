@@ -45,17 +45,21 @@ const ConfirmationPage = async () => {
     redirect("/cart/identification");
   }
   return (
-    <div>
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <div className="space-y-4 px-5">
+      <main className="flex-1 space-y-4 px-4 sm:px-5 lg:px-6">
         <Card>
           <CardHeader>
-            <CardTitle>Identificação</CardTitle>
+            <CardTitle className="text-base sm:text-lg lg:text-xl">
+              Identificação
+            </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-4 sm:space-y-6">
             <Card>
-              <CardContent>
-                <p className="text-sm">{formatAddress(cart.shippingAddress)}</p>
+              <CardContent className="p-4 sm:p-6">
+                <p className="text-xs sm:text-sm lg:text-base">
+                  {formatAddress(cart.shippingAddress)}
+                </p>
               </CardContent>
             </Card>
             <FinishOrderButton />
@@ -73,10 +77,8 @@ const ConfirmationPage = async () => {
             imageUrl: item.productVariant.imageUrl,
           }))}
         />
-      </div>
-      <div className="mt-12">
-        <Footer />
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 };

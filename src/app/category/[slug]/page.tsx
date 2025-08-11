@@ -28,9 +28,11 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1 space-y-6 px-5 py-6">
-        <h2 className="text-xl font-semibold">{category.name}</h2>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <main className="flex-1 space-y-4 px-4 py-4 sm:space-y-6 sm:px-5 sm:py-6 lg:space-y-8 lg:px-6 lg:py-8">
+        <h2 className="text-lg font-semibold sm:text-xl lg:text-2xl">
+          {category.name}
+        </h2>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4 lg:gap-8 xl:grid-cols-5">
           {products.map((product) => (
             <ProductItem
               key={product.id}

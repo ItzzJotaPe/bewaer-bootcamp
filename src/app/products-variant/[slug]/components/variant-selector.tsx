@@ -13,7 +13,7 @@ const VariantSelector = ({
   variants,
 }: VariantSelectorProps) => {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-3 sm:gap-4">
       {variants.map((variant) => (
         <Link href={`/products-variant/${variant.slug}`} key={variant.id}>
           <Image
@@ -21,7 +21,7 @@ const VariantSelector = ({
             alt={variant.name}
             width={68}
             height={68}
-            className={`rounded-xl ${
+            className={`h-12 w-12 rounded-lg sm:h-16 sm:w-16 sm:rounded-xl ${
               selectedVariantSlug === variant.slug
                 ? "border-primary border-2"
                 : ""

@@ -40,42 +40,42 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
   return (
     <>
       <Header />
-      <div className="flex flex-col space-y-6">
-        <div className="px-5">
+      <div className="flex flex-col space-y-4 sm:space-y-6 lg:space-y-8">
+        <div className="px-4 sm:px-5 lg:px-6">
           <Image
             src={productVariant.imageUrl}
             alt={productVariant.name}
             sizes="100vw"
             height={0}
             width={0}
-            className="h-auto w-full rounded-xl object-cover"
+            className="h-auto w-full rounded-lg object-cover sm:rounded-xl lg:rounded-2xl"
           />
         </div>
 
-        <div className="px-5">
+        <div className="px-4 sm:px-5 lg:px-6">
           <VariantSelector
             selectedVariantSlug={productVariant.slug}
             variants={productVariant.product.variants}
           />
         </div>
 
-        <div className="px-5">
+        <div className="px-4 sm:px-5 lg:px-6">
           {/* DESCRIÇÃO */}
-          <h2 className="text-lg font-semibold">
+          <h2 className="text-base font-semibold sm:text-lg lg:text-xl">
             {productVariant.product.name}
           </h2>
-          <h3 className="text-muted-foreground text-sm">
+          <h3 className="text-muted-foreground text-xs sm:text-sm lg:text-base">
             {productVariant.name}
           </h3>
-          <h3 className="text-lg font-semibold">
+          <h3 className="text-base font-semibold sm:text-lg lg:text-xl">
             {formatCentsToBRL(productVariant.priceInCents)}
           </h3>
         </div>
 
         <ProductActions productVariantId={productVariant.id} />
 
-        <div className="px-5">
-          <p className="text-shadow-amber-600">
+        <div className="px-4 sm:px-5 lg:px-6">
+          <p className="text-sm text-shadow-amber-600 sm:text-base lg:text-lg">
             {productVariant.product.description}
           </p>
         </div>

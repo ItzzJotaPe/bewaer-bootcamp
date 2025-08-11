@@ -27,40 +27,52 @@ import { Cart } from "./cart";
 export const Header = () => {
   const { data: session } = authClient.useSession();
   return (
-    <header className="flex items-center justify-between p-5">
+    <header className="flex items-center justify-between p-4 sm:p-5 lg:p-6 xl:p-8">
       <Link href="/">
-        <Image src="/logo.svg" alt="BEWEAR" width={100} height={26.14} />
+        <Image
+          src="/logo.svg"
+          alt="BEWEAR"
+          width={100}
+          height={26.14}
+          className="h-6 w-auto sm:h-7 lg:h-8 xl:h-10"
+        />
       </Link>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3">
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline" size="icon">
-              <MenuIcon />
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11"
+            >
+              <MenuIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
             </Button>
           </SheetTrigger>
-          <SheetContent>
+          <SheetContent className="w-full sm:max-w-md">
             <SheetHeader>
-              <SheetTitle>Menu</SheetTitle>
+              <SheetTitle className="text-lg sm:text-xl">Menu</SheetTitle>
             </SheetHeader>
-            <div className="px-6 py-4">
+            <div className="px-4 py-4 sm:px-6">
               {session?.user ? (
                 <>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <Avatar>
+                      <Avatar className="h-10 w-10 sm:h-12 sm:w-12">
                         <AvatarImage
                           src={session?.user?.image as string | undefined}
                         />
-                        <AvatarFallback>
+                        <AvatarFallback className="text-sm sm:text-base">
                           {session?.user?.name?.split(" ")?.[0]?.[0]}
                           {session?.user?.name?.split(" ")?.[1]?.[0]}
                         </AvatarFallback>
                       </Avatar>
 
                       <div>
-                        <h3 className="font-semibold">{session?.user?.name}</h3>
-                        <span className="text-muted-foreground block text-xs">
+                        <h3 className="text-sm font-semibold sm:text-base">
+                          {session?.user?.name}
+                        </h3>
+                        <span className="text-muted-foreground block text-xs sm:text-sm">
                           {session?.user?.email}
                         </span>
                       </div>
@@ -69,21 +81,28 @@ export const Header = () => {
                       variant="outline"
                       size="icon"
                       onClick={() => authClient.signOut()}
+                      className="h-8 w-8 sm:h-9 sm:w-9"
                     >
-                      <LogOutIcon />
+                      <LogOutIcon className="h-4 w-4" />
                     </Button>
                   </div>
                 </>
               ) : (
                 <div className="flex items-center justify-between">
-                  <h2 className="font-semibold">Olá. Faça seu login!</h2>
-                  <Button asChild className="rounded-full px-4" size="sm">
+                  <h2 className="text-sm font-semibold sm:text-base">
+                    Olá. Faça seu login!
+                  </h2>
+                  <Button
+                    asChild
+                    className="rounded-full px-3 sm:px-4"
+                    size="sm"
+                  >
                     <Link
                       href="/authentication"
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 text-xs sm:text-sm"
                     >
                       <span>Login</span>
-                      <LogInIcon className="h-4 w-4" />
+                      <LogInIcon className="h-3 w-3 sm:h-4 sm:w-4" />
                     </Link>
                   </Button>
                 </div>
@@ -91,7 +110,7 @@ export const Header = () => {
               <div className="my-4">
                 <Separator />
               </div>
-              <nav className="flex flex-col space-y-1 text-sm">
+              <nav className="flex flex-col space-y-1 text-sm sm:text-base">
                 <Link
                   href="/cart/identification"
                   className="hover:bg-muted/50 flex items-center gap-3 rounded-md px-2 py-2.5"
@@ -110,7 +129,7 @@ export const Header = () => {
               <div className="my-4">
                 <Separator />
               </div>
-              <ul className="mt-1 flex flex-col gap-2.5 text-sm">
+              <ul className="mt-1 flex flex-col gap-2.5 text-sm sm:text-base">
                 <li>
                   <Link
                     href="/category/camisetas"

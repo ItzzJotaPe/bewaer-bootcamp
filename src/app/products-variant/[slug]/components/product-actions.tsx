@@ -49,27 +49,39 @@ const ProductActions = ({ productVariantId }: ProductActionsProps) => {
 
   return (
     <>
-      <div className="px-5">
-        <div className="space-y-4">
-          <h3 className="font-medium">Quantidade</h3>
-          <div className="flex w-[100px] items-center justify-between rounded-lg border">
-            <Button size="icon" variant="ghost" onClick={handleDecrement}>
-              <MinusIcon />
+      <div className="px-4 sm:px-5 lg:px-6">
+        <div className="space-y-3 sm:space-y-4">
+          <h3 className="text-sm font-medium sm:text-base lg:text-lg">
+            Quantidade
+          </h3>
+          <div className="flex w-[90px] items-center justify-between rounded-lg border sm:w-[100px]">
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={handleDecrement}
+              className="h-8 w-8 sm:h-9 sm:w-9"
+            >
+              <MinusIcon className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
-            <p>{quantity}</p>
-            <Button size="icon" variant="ghost" onClick={handleIncrement}>
-              <PlusIcon />
+            <p className="text-sm sm:text-base">{quantity}</p>
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={handleIncrement}
+              className="h-8 w-8 sm:h-9 sm:w-9"
+            >
+              <PlusIcon className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
           </div>
         </div>
       </div>
-      <div className="flex flex-col space-y-4 px-5">
+      <div className="flex flex-col space-y-3 px-4 sm:space-y-4 sm:px-5 lg:px-6">
         <AddToCartButton
           productVariantId={productVariantId}
           quantity={quantity}
         />
         <Button
-          className="rounded-full"
+          className="rounded-full text-sm sm:text-base"
           size="lg"
           onClick={handleBuyNow}
           disabled={isBuyingNow}

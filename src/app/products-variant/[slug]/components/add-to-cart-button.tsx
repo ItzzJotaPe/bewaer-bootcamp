@@ -29,13 +29,13 @@ const AddToCartButton = ({
   });
   return (
     <Button
-      className="rounded-full"
+      className="rounded-full text-sm sm:text-base"
       size="lg"
       variant="outline"
       disabled={isPending}
       onClick={() => mutate()}
     >
-      {isPending && <Loader2 className="animate-spin" />}
+      {isPending && <Loader2 className="h-4 w-4 animate-spin sm:h-5 sm:w-5" />}
       Adicionar ao carrinho
     </Button>
   );

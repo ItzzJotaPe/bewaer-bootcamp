@@ -25,32 +25,32 @@ const Home = async () => {
   return (
     <>
       <Header />
-      <div className="space-y-6">
-        <div className="px-5">
+      <div className="space-y-4 sm:space-y-6 lg:space-y-8">
+        <div className="px-4 sm:px-5 lg:px-6">
           <Image
             src="/banner-01.png"
             alt="Leve uma vida com estilo"
             height={0}
             width={0}
             sizes="100vw"
-            className="h-auto w-full"
+            className="h-auto w-full rounded-lg sm:rounded-xl"
           />
         </div>
 
         <ProductList products={products} title="Mais vendidos" />
 
-        <div className="px-5">
+        <div className="px-4 sm:px-5 lg:px-6">
           <CategorySelector categories={categories} />
         </div>
 
-        <div className="px-5">
+        <div className="px-4 sm:px-5 lg:px-6">
           <Image
             src="/banner-02.png"
             alt="Leve uma vida com estilo"
             height={0}
             width={0}
             sizes="100vw"
-            className="h-auto w-full"
+            className="h-auto w-full rounded-lg sm:rounded-xl"
           />
         </div>
 

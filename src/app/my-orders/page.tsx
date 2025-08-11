@@ -34,7 +34,7 @@ const MyOrdersPage = async () => {
   return (
     <>
       <Header />
-      <div className="px-5">
+      <div className="px-4 sm:px-5 lg:px-6">
         <Orders
           orders={orders.map((order) => ({
             id: order.id,

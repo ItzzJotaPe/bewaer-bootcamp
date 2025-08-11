@@ -82,22 +82,33 @@ const SignUpForm = () => {
   return (
     <>
       <Card className="w-full">
-        <CardHeader>
-          <CardTitle>Criar conta</CardTitle>
-          <CardDescription>Crie uma conta para continuar.</CardDescription>
+        <CardHeader className="space-y-2 sm:space-y-3">
+          <CardTitle className="text-lg sm:text-xl lg:text-2xl">
+            Criar conta
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base">
+            Crie uma conta para continuar.
+          </CardDescription>
         </CardHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <CardContent className="grid w-full gap-6">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-6 sm:space-y-8"
+          >
+            <CardContent className="grid w-full gap-4 sm:gap-6">
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nome</FormLabel>
+                    <FormLabel className="text-sm sm:text-base">Nome</FormLabel>
                     <FormControl>
-                      <Input placeholder="Digite seu nome" {...field} />
+                      <Input
+                        placeholder="Digite seu nome"
+                        {...field}
+                        className="text-sm sm:text-base"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -108,9 +119,15 @@ const SignUpForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel className="text-sm sm:text-base">
+                      Email
+                    </FormLabel>
                     <FormControl>
-                      <Input placeholder="Digite seu email" {...field} />
+                      <Input
+                        placeholder="Digite seu email"
+                        {...field}
+                        className="text-sm sm:text-base"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -121,12 +138,15 @@ const SignUpForm = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Senha</FormLabel>
+                    <FormLabel className="text-sm sm:text-base">
+                      Senha
+                    </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Digite sua senha"
                         type="password"
                         {...field}
+                        className="text-sm sm:text-base"
                       />
                     </FormControl>
                     <FormMessage />
@@ -138,12 +158,15 @@ const SignUpForm = () => {
                 name="passwordConfirmation"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Confirmar senha</FormLabel>
+                    <FormLabel className="text-sm sm:text-base">
+                      Confirmar senha
+                    </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Digite a sua senha novamente"
                         type="password"
                         {...field}
+                        className="text-sm sm:text-base"
                       />
                     </FormControl>
                     <FormMessage />
@@ -152,7 +175,9 @@ const SignUpForm = () => {
               />
             </CardContent>
             <CardFooter>
-              <Button type="submit">Criar conta</Button>
+              <Button type="submit" className="w-full text-sm sm:text-base">
+                Criar conta
+              </Button>
             </CardFooter>
           </form>
         </Form>

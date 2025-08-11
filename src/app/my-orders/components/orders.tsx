@@ -30,24 +30,36 @@ interface OrdersProps {
 
 const Orders = ({ orders }: OrdersProps) => {
   return (
-    <div className="space-y-5">
+    <div className="space-y-4 sm:space-y-5 lg:space-y-6">
       <Card>
-        <CardContent>
+        <CardContent className="p-4 sm:p-6">
           {orders.map((order) => (
             <Accordion type="single" collapsible key={order.id}>
               <AccordionItem value="item-1">
-                <AccordionTrigger>
-                  <div className="flex w-full items-center justify-between gap-4">
+                <AccordionTrigger className="text-left">
+                  <div className="flex w-full flex-col items-start justify-between gap-2 sm:flex-row sm:items-center sm:gap-4">
                     <div className="flex items-center gap-2">
-                      {order.status === "paid" && <Badge>Pago</Badge>}
+                      {order.status === "paid" && (
+                        <Badge className="text-xs sm:text-sm">Pago</Badge>
+                      )}
                       {order.status === "pending" && (
-                        <Badge variant="secondary">Pagamento pendente</Badge>
+                        <Badge
+                          variant="secondary"
+                          className="text-xs sm:text-sm"
+                        >
+                          Pagamento pendente
+                        </Badge>
                       )}
                       {order.status === "canceled" && (
-                        <Badge variant="destructive">Pedido cancelado</Badge>
+                        <Badge
+                          variant="destructive"
+                          className="text-xs sm:text-sm"
+                        >
+                          Pedido cancelado
+                        </Badge>
                       )}
                     </div>
-                    <p>
+                    <p className="text-xs sm:text-sm lg:text-base">
                       Pedido feito em{" "}
                       {new Date(order.createdAt).toLocaleDateString("pt-BR")}
                     </p>
