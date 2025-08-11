@@ -41,14 +41,16 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
     <>
       <Header />
       <div className="flex flex-col space-y-6">
-        <Image
-          src={productVariant.imageUrl}
-          alt={productVariant.name}
-          sizes="100vw"
-          height={0}
-          width={0}
-          className="h-auto w-full object-cover"
-        />
+        <div className="px-5">
+          <Image
+            src={productVariant.imageUrl}
+            alt={productVariant.name}
+            sizes="100vw"
+            height={0}
+            width={0}
+            className="h-auto w-full rounded-xl object-cover"
+          />
+        </div>
 
         <div className="px-5">
           <VariantSelector

@@ -1,9 +1,13 @@
 "use client";
 
 import { MinusIcon, PlusIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
+import { addProductToCart } from "@/actions/add-cart-product";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/hooks/queries/use-cart";
 
 import AddToCartButton from "./add-to-cart-button";
 
@@ -13,6 +17,9 @@ interface ProductActionsProps {
 
 const ProductActions = ({ productVariantId }: ProductActionsProps) => {
   const [quantity, setQuantity] = useState(1);
+  const [isBuyingNow, setIsBuyingNow] = useState(false);
+  const router = useRouter();
+  const { refetch } = useCart();
 
   const handleDecrement = () => {
     setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
@@ -20,6 +27,24 @@ const ProductActions = ({ productVariantId }: ProductActionsProps) => {
 
   const handleIncrement = () => {
     setQuantity((prev) => prev + 1);
+  };
+
+  const handleBuyNow = async () => {
+    try {
+      setIsBuyingNow(true);
+      await addProductToCart({
+        productVariantId,
+        quantity,
+      });
+      await refetch();
+      toast.success("Produto adicionado ao carrinho!");
+      router.push("/cart/identification");
+    } catch (error) {
+      toast.error("Erro ao adicionar produto ao carrinho");
+      console.error(error);
+    } finally {
+      setIsBuyingNow(false);
+    }
   };
 
   return (
@@ -43,8 +68,13 @@ const ProductActions = ({ productVariantId }: ProductActionsProps) => {
           productVariantId={productVariantId}
           quantity={quantity}
         />
-        <Button className="rounded-full" size="lg">
-          Comprar agora
+        <Button
+          className="rounded-full"
+          size="lg"
+          onClick={handleBuyNow}
+          disabled={isBuyingNow}
+        >
+          {isBuyingNow ? "Processando..." : "Comprar agora"}
         </Button>
       </div>
     </>

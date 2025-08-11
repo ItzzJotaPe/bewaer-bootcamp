@@ -33,26 +33,42 @@ export const Cart = () => {
         </SheetHeader>
 
         <div className="flex h-full flex-col px-5 pb-5">
-          <div className="flex h-full max-h-full flex-col overflow-hidden">
-            <ScrollArea className="h-full">
-              <div className="flex h-full flex-col gap-8">
-                {cart?.items.map((item) => (
-                  <CartItem
-                    key={item.id}
-                    id={item.id}
-                    productVariantId={item.productVariant.id}
-                    productName={item.productVariant.product.name}
-                    productVariantName={item.productVariant.name}
-                    productVariantImageUrl={item.productVariant.imageUrl}
-                    productVariantPriceInCents={
-                      item.productVariant.priceInCents
-                    }
-                    quantity={item.quantity}
-                  />
-                ))}
+          {cart?.items && cart.items.length > 0 ? (
+            <>
+              <div className="flex h-full max-h-full flex-col overflow-hidden">
+                <ScrollArea className="h-full">
+                  <div className="flex h-full flex-col gap-8">
+                    {cart.items.map((item) => (
+                      <CartItem
+                        key={item.id}
+                        id={item.id}
+                        productVariantId={item.productVariant.id}
+                        productName={item.productVariant.product.name}
+                        productVariantName={item.productVariant.name}
+                        productVariantImageUrl={item.productVariant.imageUrl}
+                        productVariantPriceInCents={
+                          item.productVariant.priceInCents
+                        }
+                        quantity={item.quantity}
+                      />
+                    ))}
+                  </div>
+                </ScrollArea>
               </div>
-            </ScrollArea>
-          </div>
+            </>
+          ) : (
+            <div className="flex flex-1 items-center justify-center">
+              <div className="text-center">
+                <ShoppingBasketIcon className="text-muted-foreground mx-auto mb-4 h-12 w-12" />
+                <p className="text-muted-foreground text-lg font-medium">
+                  O carrinho está vazio
+                </p>
+                <p className="text-muted-foreground text-sm">
+                  Adicione produtos para continuar comprando
+                </p>
+              </div>
+            </div>
+          )}
 
           {cart?.items && cart?.items.length > 0 && (
             <div className="flex flex-col gap-4">
