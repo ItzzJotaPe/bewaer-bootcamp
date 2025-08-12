@@ -31,7 +31,7 @@ export const Cart = () => {
           <ShoppingBasketIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-full sm:max-w-md">
+      <SheetContent className="w-full max-w-[320px] sm:max-w-md">
         <SheetHeader>
           <SheetTitle className="text-lg sm:text-xl">Carrinho</SheetTitle>
         </SheetHeader>

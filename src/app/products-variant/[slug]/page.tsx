@@ -41,7 +41,7 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
     <>
       <Header />
       <div className="flex flex-col space-y-4 sm:space-y-6 lg:space-y-8">
-        <div className="px-4 sm:px-5 lg:px-6">
+        <div className="px-4 sm:px-5 lg:px-12 xl:px-16">
           <Image
             src={productVariant.imageUrl}
             alt={productVariant.name}
@@ -52,14 +52,14 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
           />
         </div>
 
-        <div className="px-4 sm:px-5 lg:px-6">
+        <div className="px-4 sm:px-5 lg:px-12 xl:px-16">
           <VariantSelector
             selectedVariantSlug={productVariant.slug}
             variants={productVariant.product.variants}
           />
         </div>
 
-        <div className="px-4 sm:px-5 lg:px-6">
+        <div className="px-4 sm:px-5 lg:px-12 xl:px-16">
           {/* DESCRIÇÃO */}
           <h2 className="text-base font-semibold sm:text-lg lg:text-xl">
             {productVariant.product.name}
@@ -74,7 +74,7 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
 
         <ProductActions productVariantId={productVariant.id} />
 
-        <div className="px-4 sm:px-5 lg:px-6">
+        <div className="px-4 sm:px-5 lg:px-12 xl:px-16">
           <p className="text-sm text-shadow-amber-600 sm:text-base lg:text-lg">
             {productVariant.product.description}
           </p>

@@ -27,16 +27,30 @@ import { Cart } from "./cart";
 export const Header = () => {
   const { data: session } = authClient.useSession();
   return (
-    <header className="flex items-center justify-between p-4 sm:p-5 lg:p-6 xl:p-8">
-      <Link href="/">
-        <Image
-          src="/logo.svg"
-          alt="BEWEAR"
-          width={100}
-          height={26.14}
-          className="h-6 w-auto sm:h-7 lg:h-8 xl:h-10"
-        />
-      </Link>
+    <header className="flex items-center justify-between p-4 sm:p-5 lg:px-12 lg:py-6 xl:px-16 xl:py-8">
+      <div className="lg:hidden">
+        <Link href="/">
+          <Image
+            src="/logo.svg"
+            alt="BEWEAR"
+            width={100}
+            height={26.14}
+            className="h-6 w-auto sm:h-7 lg:h-8 xl:h-10"
+          />
+        </Link>
+      </div>
+
+      <div className="hidden lg:flex lg:flex-1 lg:justify-center">
+        <Link href="/">
+          <Image
+            src="/logo.svg"
+            alt="BEWEAR"
+            width={100}
+            height={26.14}
+            className="h-6 w-auto sm:h-7 lg:h-8 xl:h-10"
+          />
+        </Link>
+      </div>
 
       <div className="flex items-center gap-2 sm:gap-3">
         <Sheet>
@@ -49,7 +63,7 @@ export const Header = () => {
               <MenuIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
             </Button>
           </SheetTrigger>
-          <SheetContent className="w-full sm:max-w-md">
+          <SheetContent className="w-full max-w-[320px] sm:max-w-md">
             <SheetHeader>
               <SheetTitle className="text-lg sm:text-xl">Menu</SheetTitle>
             </SheetHeader>

@@ -28,7 +28,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1 space-y-4 px-4 py-4 sm:space-y-6 sm:px-5 sm:py-6 lg:space-y-8 lg:px-6 lg:py-8">
+      <main className="flex-1 space-y-4 px-4 py-4 sm:space-y-6 sm:px-5 sm:py-6 lg:space-y-8 lg:px-12 lg:py-8 xl:px-16">
         <h2 className="text-lg font-semibold sm:text-xl lg:text-2xl">
           {category.name}
         </h2>
