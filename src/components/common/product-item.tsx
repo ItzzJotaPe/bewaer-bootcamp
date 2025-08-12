@@ -10,36 +10,69 @@ interface ProductItemProps {
     variants: (typeof productVariantTable.$inferSelect)[];
   };
   textContainerClassName?: string;
+  variant?: "default" | "large";
 }
 
-const ProductItem = ({ product, textContainerClassName }: ProductItemProps) => {
+const ProductItem = ({
+  product,
+  textContainerClassName,
+  variant = "default",
+}: ProductItemProps) => {
   const firstVariant = product.variants[0];
+  const isLarge = variant === "large";
+
   return (
     <Link
       href={`/products-variant/${firstVariant.slug}`}
-      className="flex min-w-[140px] flex-col gap-3 sm:min-w-[160px] sm:gap-4 lg:min-w-[180px]"
+      className={cn(
+        "flex min-w-[140px] flex-col gap-3 sm:min-w-[160px] sm:gap-4 lg:min-w-[180px]",
+        isLarge && "lg:min-w-0 lg:flex-1",
+      )}
     >
       <Image
         src={firstVariant.imageUrl}
         alt={firstVariant.name}
-        sizes="(max-width: 640px) 140px, (max-width: 1024px) 160px, 180px"
+        sizes={
+          isLarge
+            ? "(max-width: 640px) 140px, (max-width: 1024px) 160px, 100vw"
+            : "(max-width: 640px) 140px, (max-width: 1024px) 160px, 180px"
+        }
         height={0}
         width={0}
-        className="h-auto w-full rounded-2xl sm:rounded-3xl"
+        className={cn(
+          "h-auto w-full rounded-2xl sm:rounded-3xl",
+          isLarge && "lg:aspect-square lg:object-cover",
+        )}
       />
       <div
         className={cn(
           "flex max-w-[140px] flex-col gap-1 sm:max-w-[160px] lg:max-w-[180px]",
+          isLarge && "lg:max-w-none lg:gap-2",
           textContainerClassName,
         )}
       >
-        <p className="truncate text-xs font-medium sm:text-sm">
+        <p
+          className={cn(
+            "truncate text-xs font-medium sm:text-sm",
+            isLarge && "lg:text-base lg:font-semibold",
+          )}
+        >
           {product.name}
         </p>
-        <p className="text-muted-foreground truncate text-xs font-medium">
+        <p
+          className={cn(
+            "text-muted-foreground truncate text-xs font-medium",
+            isLarge && "lg:line-clamp-2 lg:text-sm",
+          )}
+        >
           {product.description}
         </p>
-        <p className="truncate text-xs font-semibold sm:text-sm">
+        <p
+          className={cn(
+            "truncate text-xs font-semibold sm:text-sm",
+            isLarge && "lg:text-base lg:font-bold",
+          )}
+        >
           {formatCentsToBRL(firstVariant.priceInCents)}
         </p>
       </div>

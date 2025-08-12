@@ -48,7 +48,7 @@ const ProductActions = ({ productVariantId }: ProductActionsProps) => {
   };
 
   return (
-    <>
+    <div className="space-y-6">
       <div className="px-4 sm:px-5 lg:px-6">
         <div className="space-y-3 sm:space-y-4">
           <h3 className="text-sm font-medium sm:text-base lg:text-lg">
@@ -75,7 +75,7 @@ const ProductActions = ({ productVariantId }: ProductActionsProps) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col space-y-3 px-4 sm:space-y-4 sm:px-5 lg:px-6">
+      <div className="flex flex-col space-y-3 px-4 sm:space-y-4 sm:px-5 lg:flex-row lg:space-y-0 lg:space-x-4 lg:px-6">
         <AddToCartButton
           productVariantId={productVariantId}
           quantity={quantity}
@@ -89,7 +89,7 @@ const ProductActions = ({ productVariantId }: ProductActionsProps) => {
           {isBuyingNow ? "Processando..." : "Comprar agora"}
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 
