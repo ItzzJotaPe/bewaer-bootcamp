@@ -116,7 +116,7 @@ const Addresses = ({
   };
 
   return (
-    <Card>
+    <Card className="mb-6">
       <CardHeader>
         <CardTitle>Identificação</CardTitle>
       </CardHeader>

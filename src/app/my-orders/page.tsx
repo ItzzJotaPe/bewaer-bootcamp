@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import Footer from "@/components/common/footer";
 import { Header } from "@/components/common/header";
 import { db } from "@/db";
 import { orderTable } from "@/db/schema";
@@ -32,9 +33,9 @@ const MyOrdersPage = async () => {
   });
 
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <div className="px-4 sm:px-5 lg:px-6">
+      <main className="mb-8 flex-1 px-4 sm:mb-12 sm:px-5 lg:px-12 xl:px-16">
         <Orders
           orders={orders.map((order) => ({
             id: order.id,
@@ -51,8 +52,9 @@ const MyOrdersPage = async () => {
             })),
           }))}
         />
-      </div>
-    </>
+      </main>
+      <Footer />
+    </div>
   );
 };
 

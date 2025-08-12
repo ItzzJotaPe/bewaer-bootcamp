@@ -44,29 +44,36 @@ const IdentificationPage = async () => {
     0,
   );
   return (
-    <div>
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <div className="space-y-4 px-4 sm:px-5 lg:px-6">
-        <Addresses
-          shippingAddresses={shippingAddresses}
-          defaultShippingAddressId={cart.shippingAddress?.id || null}
-        />
-        <CartSummary
-          subtotalInCents={cartTotalInCents}
-          totalInCents={cartTotalInCents}
-          products={cart.items.map((item) => ({
-            id: item.productVariant.id,
-            name: item.productVariant.product.name,
-            variantName: item.productVariant.name,
-            quantity: item.quantity,
-            priceInCents: item.productVariant.priceInCents,
-            imageUrl: item.productVariant.imageUrl,
-          }))}
-        />
-      </div>
-      <div className="mt-8 sm:mt-12">
-        <Footer />
-      </div>
+      <main className="mb-8 flex-1 px-4 sm:mb-12 sm:px-5 lg:px-12 xl:px-16">
+        <div className="space-y-6 lg:grid lg:grid-cols-2 lg:gap-12 lg:space-y-0">
+          {/* Coluna da Esquerda - Identificação */}
+          <div className="space-y-4 lg:space-y-6">
+            <Addresses
+              shippingAddresses={shippingAddresses}
+              defaultShippingAddressId={cart.shippingAddress?.id || null}
+            />
+          </div>
+
+          {/* Coluna da Direita - Resumo da Compra */}
+          <div className="space-y-4 lg:space-y-6">
+            <CartSummary
+              subtotalInCents={cartTotalInCents}
+              totalInCents={cartTotalInCents}
+              products={cart.items.map((item) => ({
+                id: item.productVariant.id,
+                name: item.productVariant.product.name,
+                variantName: item.productVariant.name,
+                quantity: item.quantity,
+                priceInCents: item.productVariant.priceInCents,
+                imageUrl: item.productVariant.imageUrl,
+              }))}
+            />
+          </div>
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 };

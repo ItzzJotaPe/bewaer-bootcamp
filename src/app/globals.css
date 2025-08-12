@@ -112,6 +112,23 @@
   --sidebar-ring: oklch(0.541 0.281 293.009);
 }
 
+/* Garantir que o footer fique sempre no final */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#__next {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

@@ -25,9 +25,9 @@ const Home = async () => {
   const categories = await db.query.categoryTable.findMany({});
 
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <div className="space-y-4 sm:space-y-6 lg:space-y-8">
+      <main className="mb-8 flex-1 space-y-4 sm:mb-12 sm:space-y-6 lg:space-y-8">
         <div className="hidden px-4 sm:px-5 lg:block lg:px-12 xl:px-16">
           <CategorySelectorDesktop categories={categories} />
         </div>
@@ -81,8 +81,8 @@ const Home = async () => {
           />
         </div>
         <Footer />
-      </div>
-    </>
+      </main>
+    </div>
   );
 };
 

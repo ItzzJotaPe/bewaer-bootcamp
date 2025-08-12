@@ -41,9 +41,9 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
   });
   const categories = await db.query.categoryTable.findMany({});
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <div className="flex flex-col space-y-4 sm:space-y-6 lg:space-y-8">
+      <main className="mb-8 flex flex-1 flex-col space-y-4 sm:mb-12 sm:space-y-6 lg:space-y-8">
         <div className="hidden lg:block">
           <div className="mb-6 px-4 sm:px-5 lg:px-12 xl:px-16">
             <CategorySelectorDesktop categories={categories} />
@@ -107,8 +107,8 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
         />
 
         <Footer />
-      </div>
-    </>
+      </main>
+    </div>
   );
 };
 
