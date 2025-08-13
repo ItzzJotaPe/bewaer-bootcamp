@@ -1,6 +1,8 @@
 import { desc } from "drizzle-orm";
 import Image from "next/image";
 
+import BrandList from "@/components/common/brand-list";
+import BrandListWithArrows from "@/components/common/brand-list-with-arrows";
 import CategorySelector from "@/components/common/category-selector";
 import CategorySelectorDesktop from "@/components/common/category-selector-desktop";
 import Footer from "@/components/common/footer";
@@ -23,6 +25,19 @@ const Home = async () => {
     },
   });
   const categories = await db.query.categoryTable.findMany({});
+
+  const partnerBrands = [
+    { name: "Nike", logo: "/nike.svg" },
+    { name: "Adidas", logo: "/adidas.svg" },
+    { name: "Puma", logo: "/puma.svg" },
+    { name: "New Balance", logo: "/newbalance.svg" },
+    { name: "Ralph Lauren", logo: "/ralphlauren.svg" },
+    { name: "Zara", logo: "/zara.svg" },
+    { name: "Jordan", logo: "/jordan.svg" },
+    { name: "Vans", logo: "/vans.svg" },
+    { name: "North Face", logo: "/thenorthface.svg" },
+    { name: "Hugo Boss", logo: "/hugoboss.svg" },
+  ];
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -47,6 +62,16 @@ const Home = async () => {
               className="lg:max-w-8xl h-auto w-full rounded-lg sm:rounded-xl lg:mx-auto"
             />
           </picture>
+        </div>
+
+        <div className="lg:hidden">
+          <BrandList brands={partnerBrands} title="Marcas parceiras" />
+        </div>
+        <div className="hidden lg:block">
+          <BrandListWithArrows
+            brands={partnerBrands}
+            title="Marcas parceiras"
+          />
         </div>
 
         <div className="lg:hidden">
