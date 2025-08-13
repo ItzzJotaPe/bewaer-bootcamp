@@ -25,7 +25,7 @@ const ProductItem = ({
     <Link
       href={`/products-variant/${firstVariant.slug}`}
       className={cn(
-        "flex min-w-[140px] flex-col gap-3 sm:min-w-[160px] sm:gap-4 lg:min-w-[180px]",
+        "flex min-w-[140px] flex-col gap-3 sm:min-w-[160px] sm:gap-4 lg:min-w-[160px]",
         isLarge && "lg:min-w-0 lg:flex-1",
       )}
     >
@@ -35,7 +35,7 @@ const ProductItem = ({
         sizes={
           isLarge
             ? "(max-width: 640px) 140px, (max-width: 1024px) 160px, 100vw"
-            : "(max-width: 640px) 140px, (max-width: 1024px) 160px, 180px"
+            : "(max-width: 640px) 140px, (max-width: 1024px) 160px, 160px"
         }
         height={0}
         width={0}
@@ -46,7 +46,7 @@ const ProductItem = ({
       />
       <div
         className={cn(
-          "flex max-w-[140px] flex-col gap-1 sm:max-w-[160px] lg:max-w-[180px]",
+          "flex max-w-[140px] flex-col gap-1 sm:max-w-[160px] lg:max-w-[160px]",
           isLarge && "lg:max-w-none lg:gap-2",
           textContainerClassName,
         )}

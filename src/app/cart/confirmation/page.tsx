@@ -1,11 +1,15 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import CategorySelector from "@/components/common/category-selector";
+import CategorySelectorDesktop from "@/components/common/category-selector-desktop";
 import Footer from "@/components/common/footer";
 import { Header } from "@/components/common/header";
+import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/db";
+import { categoryTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
 
 import CartSummary from "../components/cart-summary";
@@ -44,47 +48,63 @@ const ConfirmationPage = async () => {
   if (!cart.shippingAddress) {
     redirect("/cart/identification");
   }
+  const categories = await db.query.categoryTable.findMany({});
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="mb-8 flex-1 px-4 sm:mb-12 sm:px-5 lg:px-12 xl:px-16">
-        <div className="space-y-6 lg:grid lg:grid-cols-2 lg:gap-12 lg:space-y-0">
-          {/* Coluna da Esquerda - Identificação */}
-          <div className="space-y-4 lg:space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base sm:text-lg lg:text-xl">
-                  Identificação
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4 sm:space-y-6">
-                <Card>
-                  <CardContent className="p-4 sm:p-6">
-                    <p className="text-xs sm:text-sm lg:text-base">
-                      {formatAddress(cart.shippingAddress)}
-                    </p>
-                  </CardContent>
-                </Card>
-                <FinishOrderButton />
-              </CardContent>
-            </Card>
-          </div>
+      <main className="mb-8 flex-1 space-y-4 sm:mb-12 sm:space-y-6 lg:space-y-8">
+        <div className="hidden px-4 sm:px-5 lg:block lg:px-12 xl:px-16">
+          <CategorySelectorDesktop categories={categories} />
+        </div>
 
-          {/* Coluna da Direita - Resumo da Compra */}
-          <div className="space-y-4 lg:space-y-6">
-            <CartSummary
-              subtotalInCents={cartTotalInCents}
-              totalInCents={cartTotalInCents}
-              products={cart.items.map((item) => ({
-                id: item.productVariant.id,
-                name: item.productVariant.product.name,
-                variantName: item.productVariant.name,
-                quantity: item.quantity,
-                priceInCents: item.productVariant.priceInCents,
-                imageUrl: item.productVariant.imageUrl,
-              }))}
-            />
+        <div className="px-4 sm:px-5 lg:px-12 xl:px-16">
+          <Separator />
+        </div>
+
+        <div className="px-4 sm:px-5 lg:px-12 xl:px-16">
+          <div className="space-y-6 lg:grid lg:grid-cols-2 lg:gap-12 lg:space-y-0">
+            {/* Coluna da Esquerda - Identificação */}
+            <div className="space-y-4 lg:space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base sm:text-lg lg:text-xl">
+                    Identificação
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4 sm:space-y-6">
+                  <Card>
+                    <CardContent className="p-4 sm:p-6">
+                      <p className="text-xs sm:text-sm lg:text-base">
+                        {formatAddress(cart.shippingAddress)}
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <FinishOrderButton />
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Coluna da Direita - Resumo da Compra */}
+            <div className="space-y-4 lg:space-y-6">
+              <CartSummary
+                subtotalInCents={cartTotalInCents}
+                totalInCents={cartTotalInCents}
+                products={cart.items.map((item) => ({
+                  id: item.productVariant.id,
+                  name: item.productVariant.product.name,
+                  variantName: item.productVariant.name,
+                  quantity: item.quantity,
+                  priceInCents: item.productVariant.priceInCents,
+                  imageUrl: item.productVariant.imageUrl,
+                }))}
+              />
+            </div>
           </div>
+        </div>
+
+        <div className="px-4 sm:px-5 lg:hidden lg:px-12 xl:px-16">
+          <CategorySelector categories={categories} />
         </div>
       </main>
       <Footer />

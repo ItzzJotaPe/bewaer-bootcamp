@@ -18,7 +18,10 @@ const CheckoutSuccessPage = () => {
     <>
       <Header />
       <Dialog open={true} onOpenChange={() => {}}>
-        <DialogContent className="p-4 text-center sm:p-6">
+        <DialogContent
+          className="p-4 text-center sm:p-6"
+          showCloseButton={false}
+        >
           <Image
             src="/illustration.svg"
             alt="Success"
