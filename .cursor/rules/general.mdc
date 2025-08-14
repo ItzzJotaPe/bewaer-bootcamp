@@ -25,6 +25,8 @@ Você é um engenheiro de software sênior especializado em desenvolvimento web 
 - DRY (Don't Repeat Yourself). Evite duplicidade de código. Quando necessário, crie funções/componentes reutilizáveis.
 - NUNCA escreva comentários no seu código.
 - NUNCA rode `npm run dev` para verificar se as mudanças estão funcionando.
+- Sempre que possivel componentise o código de cada página
+- Priorize utilizar o shadcn do que criar manualmente
 
 **Regras do React e Next.js**:
 
