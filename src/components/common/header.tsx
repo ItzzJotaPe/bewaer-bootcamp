@@ -6,11 +6,13 @@ import {
   LogInIcon,
   LogOutIcon,
   MenuIcon,
+  SettingsIcon,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 import { authClient } from "@/lib/auth-client";
+import { useUser } from "@/hooks/queries/use-user";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
@@ -26,6 +28,10 @@ import { Cart } from "./cart";
 
 export const Header = () => {
   const { data: session } = authClient.useSession();
+  const { data: user } = useUser();
+  
+  const isAdmin = user?.role === "adm";
+
   return (
     <header className="flex items-center justify-between p-4 sm:p-5 lg:px-12 lg:py-6 xl:px-16 xl:py-8">
       <div className="lg:hidden">
@@ -139,6 +145,15 @@ export const Header = () => {
                   <ClipboardListIcon className="h-4 w-4" />
                   <span className="font-semibold">Meus Pedidos</span>
                 </Link>
+                {isAdmin && (
+                  <Link
+                    href="/admin"
+                    className="hover:bg-muted/50 flex items-center gap-3 rounded-md px-2 py-2.5"
+                  >
+                    <SettingsIcon className="h-4 w-4" />
+                    <span className="font-semibold">Painel Administrativo</span>
+                  </Link>
+                )}
               </nav>
               <div className="my-4">
                 <Separator />

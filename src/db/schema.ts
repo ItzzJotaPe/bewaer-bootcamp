@@ -9,6 +9,8 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 
+export const userRole = pgEnum("user_role", ["user", "adm"]);
+
 export const userTable = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
@@ -17,6 +19,7 @@ export const userTable = pgTable("user", {
     .$defaultFn(() => false)
     .notNull(),
   image: text("image"),
+  role: userRole("role").notNull().default("user"),
   createdAt: timestamp("created_at")
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
