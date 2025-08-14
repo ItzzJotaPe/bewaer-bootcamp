@@ -39,6 +39,7 @@ export default async function AdminProductsPage() {
       name: productTable.name,
       slug: productTable.slug,
       description: productTable.description,
+      imageUrl: productTable.imageUrl,
       createdAt: productTable.createdAt,
       category: {
         id: categoryTable.id,
@@ -55,6 +56,7 @@ export default async function AdminProductsPage() {
         .select({
           id: productVariantTable.id,
           name: productVariantTable.name,
+          slug: productVariantTable.slug,
           color: productVariantTable.color,
           priceInCents: productVariantTable.priceInCents,
           imageUrl: productVariantTable.imageUrl,
@@ -64,6 +66,7 @@ export default async function AdminProductsPage() {
 
       return {
         ...product,
+        imageUrl: product.imageUrl || undefined,
         category: product.category || undefined,
         variants,
       };
@@ -74,7 +77,11 @@ export default async function AdminProductsPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Gerenciar Produtos</h1>
-        <Button variant="outline" asChild>
+        <Button
+          variant="outline"
+          asChild
+          className="border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-50"
+        >
           <a href="/admin">Voltar ao Painel</a>
         </Button>
       </div>

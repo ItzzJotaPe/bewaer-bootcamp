@@ -1,7 +1,8 @@
 "use client";
 
+import { PlusIcon } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 
 interface AddProductButtonProps {
   onClick: () => void;
@@ -10,13 +11,11 @@ interface AddProductButtonProps {
 export function AddProductButton({ onClick }: AddProductButtonProps) {
   return (
     <Button
-      variant="default"
-      size="default"
-      className="bg-blue-600 hover:bg-blue-700"
       onClick={onClick}
+      className="bg-slate-700 text-white hover:bg-slate-800"
     >
-      <Plus className="mr-2 h-4 w-4" />
-      Adicionar Novo Produto
+      <PlusIcon className="mr-2 h-4 w-4" />
+      Adicionar Produto
     </Button>
   );
 }

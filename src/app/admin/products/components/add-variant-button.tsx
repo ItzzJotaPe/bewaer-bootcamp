@@ -1,7 +1,8 @@
 "use client";
 
+import { PlusIcon } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 
 interface AddVariantButtonProps {
   onClick: () => void;
@@ -10,12 +11,12 @@ interface AddVariantButtonProps {
 export function AddVariantButton({ onClick }: AddVariantButtonProps) {
   return (
     <Button
-      variant="default"
-      size="sm"
-      className="w-full bg-blue-600 hover:bg-blue-700"
       onClick={onClick}
+      variant="outline"
+      size="sm"
+      className="w-full border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-50"
     >
-      <Plus className="mr-2 h-4 w-4" />
+      <PlusIcon className="mr-2 h-4 w-4" />
       Adicionar Variante
     </Button>
   );

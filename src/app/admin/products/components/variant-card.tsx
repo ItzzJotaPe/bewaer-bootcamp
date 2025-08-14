@@ -29,7 +29,7 @@ export function VariantCard({
       <div className="flex-1">
         <p className="font-medium text-gray-900">{name}</p>
         <p className="text-sm text-gray-600">{color}</p>
-        <p className="text-sm font-semibold text-blue-600">
+        <p className="text-sm font-semibold text-slate-700">
           R$ {(priceInCents / 100).toFixed(2)}
         </p>
       </div>

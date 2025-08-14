@@ -21,6 +21,7 @@ interface ProductCardProps {
   description: string;
   slug: string;
   createdAt: Date;
+  imageUrl?: string;
   category?: {
     id: string;
     name: string;
@@ -40,6 +41,7 @@ export function ProductCard({
   description,
   slug,
   createdAt,
+  imageUrl,
   category,
   variants,
   onEditProduct,
@@ -48,13 +50,21 @@ export function ProductCard({
   onDeleteVariant,
   onAddVariant,
 }: ProductCardProps) {
+  const getMainImage = () => {
+    if (imageUrl) return imageUrl;
+    if (variants.length > 0) return variants[0].imageUrl;
+    return null;
+  };
+
+  const mainImage = getMainImage();
+
   return (
     <Card className="overflow-hidden transition-shadow hover:shadow-lg">
       {/* Imagem principal do produto */}
       <div className="relative h-64 w-full overflow-hidden bg-gray-100">
-        {variants.length > 0 ? (
+        {mainImage ? (
           <img
-            src={variants[0].imageUrl}
+            src={mainImage}
             alt={name}
             className="h-full w-full object-cover transition-transform hover:scale-105"
           />
@@ -66,13 +76,16 @@ export function ProductCard({
 
         {/* Badge de categoria */}
         {category && (
-          <Badge className="absolute top-3 left-3 bg-blue-600">
+          <Badge className="absolute top-3 left-3 bg-slate-700 text-white">
             {category.name}
           </Badge>
         )}
 
         {/* Badge de quantidade de variantes */}
-        <Badge variant="secondary" className="absolute top-3 right-3">
+        <Badge
+          variant="secondary"
+          className="absolute top-3 right-3 border-slate-200 bg-slate-100 text-slate-700"
+        >
           {variants.length} variante{variants.length !== 1 ? "s" : ""}
         </Badge>
       </div>

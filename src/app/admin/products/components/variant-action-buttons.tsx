@@ -17,7 +17,7 @@ export function VariantActionButtons({
       <Button
         variant="outline"
         size="sm"
-        className="h-7 px-2 text-xs"
+        className="h-7 border-slate-300 px-2 text-xs text-slate-700 hover:border-slate-400 hover:bg-slate-50"
         onClick={onEdit}
       >
         <Edit className="mr-1 h-3 w-3" />

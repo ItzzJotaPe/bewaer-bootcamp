@@ -21,6 +21,11 @@ const ProductItem = ({
   const firstVariant = product.variants[0];
   const isLarge = variant === "large";
 
+  // Se não há variantes, não renderiza o produto
+  if (!firstVariant) {
+    return null;
+  }
+
   return (
     <Link
       href={`/products-variant/${firstVariant.slug}`}

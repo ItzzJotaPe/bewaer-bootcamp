@@ -1,4 +1,4 @@
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import Image from "next/image";
 
 import BrandList from "@/components/common/brand-list";
@@ -10,21 +10,99 @@ import { Header } from "@/components/common/header";
 import ProductList from "@/components/common/product-list";
 import ProductListWithArrows from "@/components/common/product-list-with-arrows";
 import { db } from "@/db";
-import { productTable } from "@/db/schema";
+import { categoryTable, productTable, productVariantTable } from "@/db/schema";
 
 const Home = async () => {
-  const products = await db.query.productTable.findMany({
-    with: {
-      variants: true,
-    },
-  });
-  const newlyCreatedProducts = await db.query.productTable.findMany({
-    orderBy: [desc(productTable.createdAt)],
-    with: {
-      variants: true,
-    },
-  });
-  const categories = await db.query.categoryTable.findMany({});
+  const products = await db
+    .select({
+      id: productTable.id,
+      name: productTable.name,
+      slug: productTable.slug,
+      description: productTable.description,
+      imageUrl: productTable.imageUrl,
+      createdAt: productTable.createdAt,
+      categoryId: productTable.categoryId,
+    })
+    .from(productTable);
+
+  const productsWithVariants = await Promise.all(
+    products.map(async (product) => {
+      const variants = await db
+        .select({
+          id: productVariantTable.id,
+          name: productVariantTable.name,
+          slug: productVariantTable.slug,
+          color: productVariantTable.color,
+          priceInCents: productVariantTable.priceInCents,
+          imageUrl: productVariantTable.imageUrl,
+          createdAt: productVariantTable.createdAt,
+          productId: productVariantTable.productId,
+        })
+        .from(productVariantTable)
+        .where(eq(productVariantTable.productId, product.id));
+
+      return {
+        ...product,
+        variants,
+      };
+    }),
+  );
+
+  // Filtrar apenas produtos que têm variantes
+  const productsWithVariantsFiltered = productsWithVariants.filter(
+    (product) => product.variants.length > 0,
+  );
+
+  const newlyCreatedProducts = await db
+    .select({
+      id: productTable.id,
+      name: productTable.name,
+      slug: productTable.slug,
+      description: productTable.description,
+      imageUrl: productTable.imageUrl,
+      createdAt: productTable.createdAt,
+      categoryId: productTable.categoryId,
+    })
+    .from(productTable)
+    .orderBy(desc(productTable.createdAt));
+
+  const newlyCreatedProductsWithVariants = await Promise.all(
+    newlyCreatedProducts.map(async (product) => {
+      const variants = await db
+        .select({
+          id: productVariantTable.id,
+          name: productVariantTable.name,
+          slug: productVariantTable.slug,
+          color: productVariantTable.color,
+          priceInCents: productVariantTable.priceInCents,
+          imageUrl: productVariantTable.imageUrl,
+          createdAt: productVariantTable.createdAt,
+          productId: productVariantTable.productId,
+        })
+        .from(productVariantTable)
+        .where(eq(productVariantTable.productId, product.id));
+
+      return {
+        ...product,
+        variants,
+      };
+    }),
+  );
+
+  // Filtrar apenas produtos que têm variantes
+  const newlyCreatedProductsWithVariantsFiltered =
+    newlyCreatedProductsWithVariants.filter(
+      (product) => product.variants.length > 0,
+    );
+
+  const categories = await db
+    .select({
+      id: categoryTable.id,
+      name: categoryTable.name,
+      slug: categoryTable.slug,
+      createdAt: categoryTable.createdAt,
+    })
+    .from(categoryTable);
 
   const partnerBrands = [
     { name: "Nike", logo: "/nike.svg" },
@@ -75,10 +153,16 @@ const Home = async () => {
         </div>
 
         <div className="lg:hidden">
-          <ProductList products={products} title="Mais vendidos" />
+          <ProductList
+            products={productsWithVariantsFiltered}
+            title="Mais vendidos"
+          />
         </div>
         <div className="hidden lg:block">
-          <ProductListWithArrows products={products} title="Mais vendidos" />
+          <ProductListWithArrows
+            products={productsWithVariantsFiltered}
+            title="Mais vendidos"
+          />
         </div>
 
         <div className="px-4 sm:px-5 lg:hidden lg:px-12 xl:px-16">
@@ -97,11 +181,14 @@ const Home = async () => {
         </div>
 
         <div className="lg:hidden">
-          <ProductList products={newlyCreatedProducts} title="Novos produtos" />
+          <ProductList
+            products={newlyCreatedProductsWithVariantsFiltered}
+            title="Novos produtos"
+          />
         </div>
         <div className="hidden lg:block">
           <ProductListWithArrows
-            products={newlyCreatedProducts}
+            products={newlyCreatedProductsWithVariantsFiltered}
             title="Novos produtos"
           />
         </div>

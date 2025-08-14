@@ -17,7 +17,7 @@ export function ProductActionButtons({
       <Button
         variant="default"
         size="sm"
-        className="flex-1 bg-green-600 hover:bg-green-700"
+        className="flex-1 bg-slate-700 text-white hover:bg-slate-800"
         onClick={onEdit}
       >
         <Edit className="mr-2 h-4 w-4" />
