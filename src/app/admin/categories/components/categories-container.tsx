@@ -51,7 +51,6 @@ export function CategoriesContainer({
   const handleDeleteCategory = async (categoryId: string) => {
     try {
       await deleteCategoryMutation.mutateAsync(categoryId);
-      // Atualizar estado local após exclusão
       setCategories((prev) => prev.filter((cat) => cat.id !== categoryId));
       toast.success("Categoria excluída com sucesso!");
     } catch (error) {
@@ -60,22 +59,21 @@ export function CategoriesContainer({
   };
 
   const handleSuccess = () => {
-    // Recarregar a página para obter dados atualizados
     window.location.reload();
   };
 
   return (
     <div>
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
         <button
           onClick={handleAddCategory}
-          className="rounded-md bg-slate-700 px-4 py-2 text-white transition-colors hover:bg-slate-800"
+          className="w-full rounded-md bg-slate-700 px-4 py-2 text-white transition-colors hover:bg-slate-800 sm:w-auto"
         >
           + Adicionar Nova Categoria
         </button>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
         {categories.map((category) => (
           <CategoryCard
             key={category.id}
@@ -86,7 +84,7 @@ export function CategoriesContainer({
         ))}
 
         {categories.length === 0 && (
-          <div className="col-span-full rounded-lg border bg-white p-8 text-center">
+          <div className="col-span-full rounded-lg border bg-white p-6 text-center sm:p-8">
             <h3 className="mb-2 text-lg font-semibold">
               Nenhuma categoria cadastrada
             </h3>

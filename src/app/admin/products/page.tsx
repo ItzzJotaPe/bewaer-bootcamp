@@ -1,5 +1,6 @@
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -74,16 +75,25 @@ export default async function AdminProductsPage() {
   );
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8 flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Gerenciar Produtos</h1>
-        <Button
-          variant="outline"
-          asChild
-          className="border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-50"
-        >
-          <a href="/admin">Voltar ao Painel</a>
-        </Button>
+    <div className="container mx-auto px-4 py-6 sm:py-8">
+      <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-bold sm:text-3xl">Gerenciar Produtos</h1>
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <Button
+            variant="outline"
+            asChild
+            className="w-full border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-50 sm:w-auto"
+          >
+            <Link href="/">Voltar à Loja</Link>
+          </Button>
+          <Button
+            variant="outline"
+            asChild
+            className="w-full border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-50 sm:w-auto"
+          >
+            <Link href="/admin">Voltar ao Painel</Link>
+          </Button>
+        </div>
       </div>
 
       <ProductsContainer products={productsWithVariants} />

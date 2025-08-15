@@ -130,18 +130,16 @@ export function ProductsContainer({ products }: ProductsContainerProps) {
   };
 
   const handleProductCreated = () => {
-    // Recarregar a página para mostrar o novo produto
     window.location.reload();
   };
 
   const handleVariantCreated = () => {
-    // Recarregar os produtos para mostrar a nova variante
     window.location.reload();
   };
 
   if (localProducts.length === 0) {
     return (
-      <div className="col-span-full rounded-lg border bg-white p-8 text-center">
+      <div className="rounded-lg border bg-white p-6 text-center sm:p-8">
         <h3 className="mb-2 text-lg font-semibold">
           Nenhum produto cadastrado
         </h3>
@@ -152,11 +150,11 @@ export function ProductsContainer({ products }: ProductsContainerProps) {
 
   return (
     <>
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
         <AddProductButton onClick={handleAddProduct} />
       </div>
 
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
         {localProducts.map((product) => (
           <ProductCard
             key={product.id}
