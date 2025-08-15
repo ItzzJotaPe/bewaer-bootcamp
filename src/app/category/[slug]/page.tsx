@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 
 import Footer from "@/components/common/footer";
 import { Header } from "@/components/common/header";
+import CategorySelector from "@/components/common/category-selector";
+import CategorySelectorDesktop from "@/components/common/category-selector-desktop";
 import ProductItem from "@/components/common/product-item";
 import { Separator } from "@/components/ui/separator";
 import { db } from "@/db";
@@ -17,21 +19,31 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   const category = await db.query.categoryTable.findFirst({
     where: eq(categoryTable.slug, slug),
   });
+
   if (!category) {
     return notFound();
   }
+
   const products = await db.query.productTable.findMany({
     where: eq(productTable.categoryId, category.id),
     with: {
       variants: true,
     },
   });
+
+  const allCategories = await db.query.categoryTable.findMany();
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="mb-8 flex-1 space-y-6 px-4 py-6 sm:mb-12 sm:space-y-8 sm:px-5 sm:py-8 lg:space-y-10 lg:px-12 lg:py-10 xl:px-16">
+      <main className="mb-8 flex-1 space-y-4 sm:mb-12 sm:space-y-6 lg:space-y-8">
+        {/* Categorias Desktop - Logo abaixo do Header */}
+        <div className="hidden px-4 sm:px-5 lg:block lg:px-12 xl:px-16">
+          <CategorySelectorDesktop categories={allCategories} />
+        </div>
+
         {/* Header da Categoria */}
-        <div className="flex flex-col items-center justify-center space-y-4 text-center sm:space-y-6 lg:mr-15">
+        <div className="flex flex-col items-center justify-center space-y-4 px-4 py-6 text-center sm:space-y-6 sm:px-5 sm:py-8 lg:px-12 lg:py-10 xl:px-16">
           <h1 className="text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl xl:text-6xl">
             {category.name}
           </h1>
@@ -47,11 +59,11 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
         </div>
 
         {/* Grid de Produtos */}
-        <div className="space-y-6">
+        <div className="space-y-6 px-4 sm:px-5 lg:px-12 xl:px-16">
           {products.length > 0 ? (
             <>
               <div className="text-center">
-                <p className="text-muted-foreground text-sm sm:text-base lg:mr-15">
+                <p className="text-muted-foreground text-sm sm:text-base">
                   {products.length} produto{products.length !== 1 ? "s" : ""}{" "}
                   encontrado{products.length !== 1 ? "s" : ""}
                 </p>
@@ -78,6 +90,11 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
               </p>
             </div>
           )}
+        </div>
+
+        {/* Categorias Mobile - Mais abaixo, como estava antes */}
+        <div className="px-4 sm:px-5 lg:hidden lg:px-12 xl:px-16">
+          <CategorySelector categories={allCategories} />
         </div>
       </main>
       <Footer />
