@@ -63,13 +63,20 @@ export const createCheckoutSession = async (
             name: `${orderItem.productVariant.product.name} - ${orderItem.productVariant.name}`,
             description: orderItem.productVariant.product.description,
             images: [orderItem.productVariant.imageUrl],
+            metadata: {
+              orderId,
+            },
           },
-          // Em centavos
           unit_amount: orderItem.priceInCents,
         },
         quantity: orderItem.quantity,
       };
     }),
+    payment_intent_data: {
+      metadata: {
+        orderId,
+      },
+    },
   });
   return checkoutSession;
 };
