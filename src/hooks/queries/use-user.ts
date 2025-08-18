@@ -5,7 +5,7 @@ import { authClient } from "@/lib/auth-client";
 export const getUserQueryKey = () => ["user"] as const;
 
 export const useUser = () => {
-  const { data: session, isLoading: isSessionLoading } =
+  const { data: session, isPending: isSessionPending } =
     authClient.useSession();
 
   return useQuery({
@@ -22,7 +22,7 @@ export const useUser = () => {
 
       return response.json();
     },
-    enabled: !!session?.user?.id && !isSessionLoading,
+    enabled: !!session?.user?.id && !isSessionPending,
     retry: 1,
     retryDelay: 1000,
   });
