@@ -34,7 +34,7 @@ const CheckoutSuccessPage = () => {
           </DialogTitle>
           <DialogDescription className="text-sm font-medium sm:text-base lg:text-lg">
             Seu pedido foi efetuado com sucesso. Você pode acompanhar o status
-            na seção de "Meus Pedidos".
+            na seção de &quot;Meus Pedidos&quot;.
           </DialogDescription>
 
           <DialogFooter className="flex flex-col gap-2 sm:flex-row sm:gap-3">

@@ -34,31 +34,37 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(bytes);
 
     // Upload para Cloudinary
-    const result = await new Promise((resolve, reject) => {
-      cloudinary.uploader
-        .upload_stream(
-          {
-            folder: "bewaer-products",
-            transformation: [
-              { width: 800, height: 800, crop: "limit" },
-              { quality: "auto" },
-              { fetch_format: "auto" },
-            ],
-          },
-          (error, result) => {
-            if (error) reject(error);
-            else resolve(result);
-          },
-        )
-        .end(buffer);
-    });
+    const result = await new Promise<{ secure_url: string; public_id: string }>(
+      (resolve, reject) => {
+        cloudinary.uploader
+          .upload_stream(
+            {
+              folder: "bewaer-products",
+              transformation: [
+                { width: 800, height: 800, crop: "limit" },
+                { quality: "auto" },
+                { fetch_format: "auto" },
+              ],
+            },
+            (error, result) => {
+              if (error) reject(error);
+              else
+                resolve({
+                  secure_url: result?.secure_url as string,
+                  public_id: result?.public_id as string,
+                });
+            },
+          )
+          .end(buffer);
+      },
+    );
 
     console.log("Upload - Resultado do Cloudinary:", result);
 
     return NextResponse.json({
       success: true,
-      url: (result as any).secure_url,
-      publicId: (result as any).public_id,
+      url: result.secure_url,
+      publicId: result.public_id,
     });
   } catch (error) {
     console.error("Erro no upload:", error);
