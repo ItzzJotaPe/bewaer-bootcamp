@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
+
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { AddVariantButton } from "./add-variant-button";
 import { ProductActionButtons } from "./product-action-buttons";
@@ -62,10 +64,12 @@ export function ProductCard({
     <Card className="overflow-hidden transition-shadow hover:shadow-lg">
       <div className="relative h-48 w-full overflow-hidden bg-gray-100 sm:h-56 md:h-64">
         {mainImage ? (
-          <img
+          <Image
             src={mainImage}
             alt={name}
-            className="h-full w-full object-cover transition-transform hover:scale-105"
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover transition-transform hover:scale-105"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-gray-400">

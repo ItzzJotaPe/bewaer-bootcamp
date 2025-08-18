@@ -63,6 +63,11 @@ export const addProductToCart = async (
     });
     return { success: true };
   } catch (error) {
-    return { error: "Unexpected error while adding product to cart" };
+    console.error("addProductToCart error", error);
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Unexpected error while adding product to cart";
+    return { error: message };
   }
 };

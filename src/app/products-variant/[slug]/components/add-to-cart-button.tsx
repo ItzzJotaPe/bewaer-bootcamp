@@ -21,7 +21,7 @@ const AddToCartButton = ({
   const router = useRouter();
   const { data: session } = authClient.useSession();
   const queryClient = useQueryClient();
-  const { mutate, isPending } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationKey: ["addProductToCart", productVariantId, quantity],
     mutationFn: async () =>
       addProductToCart({
@@ -50,12 +50,25 @@ const AddToCartButton = ({
       size="lg"
       variant="outline"
       disabled={isPending}
-      onClick={() => {
+      onClick={async () => {
         if (!session?.user?.id) {
           router.push("/authentication");
           return;
         }
-        mutate();
+        try {
+          const result = await mutateAsync();
+          if ("error" in result) {
+            toast.error(
+              result.error === "Unauthorized"
+                ? "Faça login para adicionar ao carrinho"
+                : "Erro ao adicionar produto ao carrinho",
+            );
+            return;
+          }
+        } catch (e) {
+          toast.error("Erro ao adicionar produto ao carrinho");
+          console.error(e);
+        }
       }}
     >
       {isPending && <Loader2 className="h-4 w-4 animate-spin sm:h-5 sm:w-5" />}

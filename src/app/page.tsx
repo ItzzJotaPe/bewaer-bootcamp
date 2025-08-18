@@ -12,6 +12,8 @@ import ProductListWithArrows from "@/components/common/product-list-with-arrows"
 import { db } from "@/db";
 import { categoryTable, productTable } from "@/db/schema";
 
+export const dynamic = "force-dynamic";
+
 const Home = async () => {
   const products = await db.query.productTable.findMany({
     with: { variants: true },
