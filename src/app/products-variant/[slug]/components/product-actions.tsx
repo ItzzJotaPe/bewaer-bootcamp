@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { addProductToCart } from "@/actions/add-cart-product";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/queries/use-cart";
+import { authClient } from "@/lib/auth-client";
 
 import AddToCartButton from "./add-to-cart-button";
 
@@ -20,6 +21,7 @@ const ProductActions = ({ productVariantId }: ProductActionsProps) => {
   const [isBuyingNow, setIsBuyingNow] = useState(false);
   const router = useRouter();
   const { refetch } = useCart();
+  const { data: session } = authClient.useSession();
 
   const handleDecrement = () => {
     setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
@@ -32,6 +34,10 @@ const ProductActions = ({ productVariantId }: ProductActionsProps) => {
   const handleBuyNow = async () => {
     try {
       setIsBuyingNow(true);
+      if (!session?.user?.id) {
+        router.push("/authentication");
+        return;
+      }
       await addProductToCart({
         productVariantId,
         quantity,

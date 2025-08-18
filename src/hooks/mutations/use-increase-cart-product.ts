@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 import { addProductToCart } from "@/actions/add-cart-product";
 
@@ -14,6 +15,7 @@ export const useIncreaseCartProduct = (productVariantId: string) => {
     mutationFn: () => addProductToCart({ productVariantId, quantity: 1 }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: getUseCartQueryKey() });
+      toast.success("Produto adicionado ao carrinho!");
     },
   });
 };
