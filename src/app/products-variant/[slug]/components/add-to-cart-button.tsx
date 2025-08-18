@@ -23,12 +23,20 @@ const AddToCartButton = ({
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationKey: ["addProductToCart", productVariantId, quantity],
-    mutationFn: () =>
+    mutationFn: async () =>
       addProductToCart({
         productVariantId,
         quantity,
       }),
-    onSuccess: () => {
+    onSuccess: (result) => {
+      if ("error" in result) {
+        toast.error(
+          result.error === "Unauthorized"
+            ? "Faça login para adicionar ao carrinho"
+            : "Erro ao adicionar produto ao carrinho",
+        );
+        return;
+      }
       queryClient.invalidateQueries({ queryKey: ["cart"] });
       toast.success("Produto adicionado ao carrinho!");
     },

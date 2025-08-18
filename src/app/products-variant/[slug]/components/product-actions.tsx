@@ -38,10 +38,18 @@ const ProductActions = ({ productVariantId }: ProductActionsProps) => {
         router.push("/authentication");
         return;
       }
-      await addProductToCart({
+      const result = await addProductToCart({
         productVariantId,
         quantity,
       });
+      if ("error" in result) {
+        toast.error(
+          result.error === "Unauthorized"
+            ? "Faça login para adicionar ao carrinho"
+            : "Erro ao adicionar produto ao carrinho",
+        );
+        return;
+      }
       await refetch();
       toast.success("Produto adicionado ao carrinho!");
       router.push("/cart/identification");
