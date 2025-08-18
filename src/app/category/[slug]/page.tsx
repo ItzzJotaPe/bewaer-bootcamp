@@ -29,9 +29,11 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
     with: {
       variants: true,
     },
+    limit: 40,
   });
-
-  const allCategories = await db.query.categoryTable.findMany();
+  const allCategories = await db.query.categoryTable.findMany({
+    limit: 100,
+  });
 
   return (
     <div className="flex min-h-screen flex-col">

@@ -38,8 +38,11 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
     with: {
       variants: true,
     },
+    limit: 12,
   });
-  const categories = await db.query.categoryTable.findMany({});
+  const categories = await db.query.categoryTable.findMany({
+    limit: 100,
+  });
   return (
     <div className="flex min-h-screen flex-col">
       <Header />

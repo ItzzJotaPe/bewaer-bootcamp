@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -29,29 +29,21 @@ export default async function AdminCategoriesPage() {
     redirect("/");
   }
 
-  const categories = await db
-    .select({
-      id: categoryTable.id,
-      name: categoryTable.name,
-      slug: categoryTable.slug,
-      createdAt: categoryTable.createdAt,
-    })
-    .from(categoryTable);
+  const categories = await db.query.categoryTable.findMany({
+    orderBy: desc(categoryTable.createdAt),
+    limit: 100,
+    with: {
+      products: true,
+    },
+  });
 
-  const categoriesWithCount = await Promise.all(
-    categories.map(async (category) => {
-      const productCountResult = await db
-        .select({ count: productTable.id })
-        .from(productTable)
-        .where(eq(productTable.categoryId, category.id));
-
-      return {
-        ...category,
-        productCount: productCountResult.length,
-        createdAt: category.createdAt.toISOString(),
-      };
-    }),
-  );
+  const categoriesWithCount = categories.map((category) => ({
+    id: category.id,
+    name: category.name,
+    slug: category.slug,
+    createdAt: category.createdAt.toISOString(),
+    productCount: category.products.length,
+  }));
 
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8">

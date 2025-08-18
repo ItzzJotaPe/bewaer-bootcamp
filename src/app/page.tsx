@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm";
+import { desc } from "drizzle-orm";
 import Image from "next/image";
 
 import BrandList from "@/components/common/brand-list";
@@ -10,90 +10,27 @@ import { Header } from "@/components/common/header";
 import ProductList from "@/components/common/product-list";
 import ProductListWithArrows from "@/components/common/product-list-with-arrows";
 import { db } from "@/db";
-import { categoryTable, productTable, productVariantTable } from "@/db/schema";
+import { categoryTable, productTable } from "@/db/schema";
 
 const Home = async () => {
-  const products = await db
-    .select({
-      id: productTable.id,
-      name: productTable.name,
-      slug: productTable.slug,
-      description: productTable.description,
-      imageUrl: productTable.imageUrl,
-      createdAt: productTable.createdAt,
-      categoryId: productTable.categoryId,
-    })
-    .from(productTable);
+  const products = await db.query.productTable.findMany({
+    with: { variants: true },
+    limit: 12,
+  });
 
-  const productsWithVariants = await Promise.all(
-    products.map(async (product) => {
-      const variants = await db
-        .select({
-          id: productVariantTable.id,
-          name: productVariantTable.name,
-          slug: productVariantTable.slug,
-          color: productVariantTable.color,
-          priceInCents: productVariantTable.priceInCents,
-          imageUrl: productVariantTable.imageUrl,
-          createdAt: productVariantTable.createdAt,
-          productId: productVariantTable.productId,
-        })
-        .from(productVariantTable)
-        .where(eq(productVariantTable.productId, product.id));
-
-      return {
-        ...product,
-        variants,
-      };
-    }),
-  );
-
-  // Filtrar apenas produtos que têm variantes
-  const productsWithVariantsFiltered = productsWithVariants.filter(
+  const productsWithVariantsFiltered = products.filter(
     (product) => product.variants.length > 0,
   );
 
-  const newlyCreatedProducts = await db
-    .select({
-      id: productTable.id,
-      name: productTable.name,
-      slug: productTable.slug,
-      description: productTable.description,
-      imageUrl: productTable.imageUrl,
-      createdAt: productTable.createdAt,
-      categoryId: productTable.categoryId,
-    })
-    .from(productTable)
-    .orderBy(desc(productTable.createdAt));
+  const newlyCreatedProducts = await db.query.productTable.findMany({
+    with: { variants: true },
+    orderBy: desc(productTable.createdAt),
+    limit: 12,
+  });
 
-  const newlyCreatedProductsWithVariants = await Promise.all(
-    newlyCreatedProducts.map(async (product) => {
-      const variants = await db
-        .select({
-          id: productVariantTable.id,
-          name: productVariantTable.name,
-          slug: productVariantTable.slug,
-          color: productVariantTable.color,
-          priceInCents: productVariantTable.priceInCents,
-          imageUrl: productVariantTable.imageUrl,
-          createdAt: productVariantTable.createdAt,
-          productId: productVariantTable.productId,
-        })
-        .from(productVariantTable)
-        .where(eq(productVariantTable.productId, product.id));
-
-      return {
-        ...product,
-        variants,
-      };
-    }),
+  const newlyCreatedProductsWithVariantsFiltered = newlyCreatedProducts.filter(
+    (product) => product.variants.length > 0,
   );
-
-  // Filtrar apenas produtos que têm variantes
-  const newlyCreatedProductsWithVariantsFiltered =
-    newlyCreatedProductsWithVariants.filter(
-      (product) => product.variants.length > 0,
-    );
 
   const categories = await db
     .select({

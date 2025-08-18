@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -34,45 +34,18 @@ export default async function AdminProductsPage() {
     redirect("/");
   }
 
-  const products = await db
-    .select({
-      id: productTable.id,
-      name: productTable.name,
-      slug: productTable.slug,
-      description: productTable.description,
-      imageUrl: productTable.imageUrl,
-      createdAt: productTable.createdAt,
-      category: {
-        id: categoryTable.id,
-        name: categoryTable.name,
-        slug: categoryTable.slug,
-      },
-    })
-    .from(productTable)
-    .leftJoin(categoryTable, eq(productTable.categoryId, categoryTable.id));
-
-  const productsWithVariants = await Promise.all(
-    products.map(async (product) => {
-      const variants = await db
-        .select({
-          id: productVariantTable.id,
-          name: productVariantTable.name,
-          slug: productVariantTable.slug,
-          color: productVariantTable.color,
-          priceInCents: productVariantTable.priceInCents,
-          imageUrl: productVariantTable.imageUrl,
-        })
-        .from(productVariantTable)
-        .where(eq(productVariantTable.productId, product.id));
-
-      return {
-        ...product,
-        imageUrl: product.imageUrl || undefined,
-        category: product.category || undefined,
-        variants,
-      };
-    }),
-  );
+  const productsRaw = await db.query.productTable.findMany({
+    with: {
+      category: true,
+      variants: true,
+    },
+    orderBy: desc(productTable.createdAt),
+    limit: 48,
+  });
+  const productsWithVariants = productsRaw.map((p) => ({
+    ...p,
+    imageUrl: p.imageUrl ?? undefined,
+  }));
 
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8">
