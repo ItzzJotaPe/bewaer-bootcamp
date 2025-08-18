@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 
 import Footer from "@/components/common/footer";
 import { Header } from "@/components/common/header";
-import CategorySelector from "@/components/common/category-selector";
 import CategorySelectorDesktop from "@/components/common/category-selector-desktop";
 import ProductItem from "@/components/common/product-item";
 import { Separator } from "@/components/ui/separator";
@@ -92,11 +91,6 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
               </p>
             </div>
           )}
-        </div>
-
-        {/* Categorias Mobile - Mais abaixo, como estava antes */}
-        <div className="px-4 sm:px-5 lg:hidden lg:px-12 xl:px-16">
-          <CategorySelector categories={allCategories} />
         </div>
       </main>
       <Footer />

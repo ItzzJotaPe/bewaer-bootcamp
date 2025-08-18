@@ -1,7 +1,6 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import CategorySelector from "@/components/common/category-selector";
 import CategorySelectorDesktop from "@/components/common/category-selector-desktop";
 import Footer from "@/components/common/footer";
 import { Header } from "@/components/common/header";
@@ -101,10 +100,6 @@ const ConfirmationPage = async () => {
               />
             </div>
           </div>
-        </div>
-
-        <div className="px-4 sm:px-5 lg:hidden lg:px-12 xl:px-16">
-          <CategorySelector categories={categories} />
         </div>
       </main>
       <Footer />
